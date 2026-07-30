@@ -1,0 +1,12 @@
+import { chromium } from "playwright";
+const [,, url, outA, outB] = process.argv;
+const b = await chromium.launch({ args: ["--use-gl=swiftshader","--enable-webgl","--ignore-gpu-blocklist"] });
+const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
+const p = await ctx.newPage();
+await p.goto(url, { waitUntil: "domcontentloaded" });
+await p.waitForTimeout(1250);
+await p.screenshot({ path: outA });
+await p.waitForTimeout(2400);
+await p.screenshot({ path: outB });
+await b.close();
+console.log("ok");

@@ -1,0 +1,276 @@
+@import "tailwindcss";
+
+/* ============================================================
+   TREEOSK — « CHROME ARGENTÉ × ACIER » (DA ACTUELLE — froide)
+   Source de vérité des tokens. ⚠️ Le socle IVOIRE chaud + le LAITON/brun sont
+   ABANDONNÉS (demande client ~2026-07-30 : plus froid, plus chrome argenté, zéro
+   brun/doré). Base = silver-chrome froid neutre : dominant #E9EAEC (~75%), noir
+   #0B0B0D en ponctuation (max 2 blocs/page), accent = ACIER #3A5A7A (métal froid,
+   plafond 4% : hover lien, filet titre, nav active, CTA contour). Chrome = matière
+   (gradient iridescent argenté) réservée à 1 élément/écran (wordmark ou objet 3D).
+   Zéro couleur saturée, zéro teinte chaude, zéro dégradé hors chrome, bordures 0.5px.
+   ============================================================ */
+@theme {
+  /* Neutres — ivoire / surfaces chaudes / noir de ponctuation */
+  --color-ink: #0b0b0c; /* noir — blocs de ponctuation (manifeste, footer, hero) */
+  --color-graphite-900: #1c1c1e;
+  --color-graphite-700: #2a2b2e;
+  --color-tobacco: #1c1c1e;
+  --color-graphite-500: #888c92; /* muted (gris froid) */
+  --color-steel-400: #888c92; /* muted froid */
+  --color-chrome-300: #9a9da1; /* secondaire sur noir (text-sec-on-ink) */
+  --color-chrome-200: #dddfe3; /* surface enfoncée (silver froid) */
+  --color-chrome-100: #f4f5f6; /* surface élevée (silver clair) */
+  --color-canvas: #e9eaec; /* SILVER-CHROME froid — fond dominant (~75%) */
+  --color-section: #dddfe3; /* surface enfoncée (filtres, zones) */
+  --color-surface: #f4f5f6; /* cards produit, élévation */
+  --color-immersive: #0b0b0c; /* blocs noirs de ponctuation */
+  --color-on-dark: #f2f3f4;
+
+  /* Legacy (neutralisés — plus utilisés en teinte, gris froids) */
+  --color-sepia: #888c92;
+  --color-sepia-deep: #565a61;
+  --color-screen: #888c92;
+
+  /* ACCENT = BLEU ACIER (froid, raccord chrome) — plafond 4% : hover lien, filet titre, nav active, CTA contour.
+     `--color-brass*` = alias historiques (mêmes valeurs) pour ne pas casser les classes text-brass/border-brass. */
+  --color-accent: #3a5a7a;
+  --color-accent-hover: #4a6f94;
+  --color-brass: #3a5a7a;
+  --color-brass-hover: #4a6f94;
+  --color-brass-deep: #24384d;
+
+  /* Rôles sémantiques THÉMABLES (swap en .dark) */
+  --color-fg: #0b0b0d; /* text-primary (noir neutre froid) */
+  --color-fg-muted: #565a61; /* text-secondary (gris froid) */
+  --color-fg-subtle: #888c92; /* text-muted / labels (gris froid) */
+  --color-title: #0b0b0d;
+  --color-inverse: #0b0b0c;
+  --color-inverse-fg: #f2f3f4;
+
+  /* Rôles sémantiques */
+  --color-text-primary: #0b0b0c;
+  --color-text-secondary: #5b616b;
+  --color-text-muted: #8b9098;
+  --color-text-on-dark: #eceef0;
+  --color-hairline: #ced1d6; /* border (0.5px, gris froid) */
+  --color-border-strong: #b3b7bd;
+  --color-hairline-dark: #2a2b2e; /* border-on-ink */
+  --color-error: #b23b3b;
+
+  /* Typographie */
+  --font-display: var(--font-base-one), "Inter", system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+
+  /* Rayons — sharp = luxe */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Ombres — froides, subtiles */
+  --shadow-sh1: 0 1px 2px rgba(11, 11, 12, 0.06);
+  --shadow-sh2: 0 8px 24px rgba(11, 11, 12, 0.08);
+  --shadow-sh3: 0 20px 48px rgba(11, 11, 12, 0.12);
+
+  /* Container */
+  --container-site: 1248px;
+}
+
+/* ===== Thème sombre (next-themes attribute="class" → html.dark) =====
+   On ne swappe QUE les rôles sémantiques ; la palette (ink/graphite/chrome/steel)
+   et le chrome restent fixes. Les fenêtres immersives restent sombres dans les 2 thèmes. */
+.dark {
+  --color-canvas: #0b0b0d;
+  --color-surface: #17181b;
+  --color-section: #121317;
+  --color-immersive: #050505;
+  --color-fg: #f2f3f4;
+  --color-fg-muted: #9a9da1;
+  --color-fg-subtle: #7f838a;
+  --color-hairline: #2a2b2e;
+  --color-inverse: #f2f3f4;
+  --color-inverse-fg: #0b0b0c;
+  /* bleu acier plus clair sur fond noir */
+  --color-accent: #6e93b8;
+  --color-accent-hover: #89a9c9;
+}
+
+/* Chrome métallique — signature (gradients, jamais un aplat plein de section) */
+@utility bg-chrome {
+  /* chrome iridescent — nuances spectrales TRÈS désaturées (titane/huile), léger mais visible */
+  background-image: linear-gradient(
+    165deg,
+    #ffffff 0%,
+    #eaf1f4 11%,
+    #a8acb0 22%,
+    #e7dfec 38%,
+    #52565b 56%,
+    #dde8e0 70%,
+    #7c8085 86%,
+    #fdfdfe 100%
+  );
+}
+@utility bg-graphite-metal {
+  background-image: linear-gradient(145deg, #3a3a3c, #141418);
+}
+@utility text-chrome {
+  background-image: linear-gradient(
+    165deg,
+    #ffffff 0%,
+    #eaf1f4 11%,
+    #a8acb0 22%,
+    #e7dfec 38%,
+    #52565b 56%,
+    #dde8e0 70%,
+    #7c8085 86%,
+    #fdfdfe 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-canvas);
+    color: var(--color-fg);
+    /* décalage des ancres pour ne pas passer sous le header fixe (fallback non-Lenis) */
+    scroll-padding-top: 5.5rem;
+    -webkit-font-smoothing: antialiased;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+  body {
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv01";
+  }
+  ::selection {
+    background: var(--color-ink);
+    color: #fff;
+  }
+  /* toute section ancrée garde une marge sous le header fixe */
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+  /* focus visible = accent laiton (accessibilité + signature) */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  /* curseur custom actif → masque le curseur natif (pointeurs fins uniquement) */
+  .cursor-none,
+  .cursor-none * {
+    cursor: none !important;
+  }
+  /* Safe mode (toggle) : coupe les animations en boucle, le WebGL et le curseur custom */
+  html[data-motion="reduced"] *,
+  html[data-motion="reduced"] *::before,
+  html[data-motion="reduced"] *::after {
+    animation-play-state: paused !important;
+    animation: none !important;
+  }
+  html[data-motion="reduced"] canvas {
+    opacity: 0 !important;
+  }
+  html[data-motion="reduced"] .custom-cursor {
+    display: none !important;
+  }
+  html[data-motion="reduced"].cursor-none,
+  html[data-motion="reduced"].cursor-none * {
+    cursor: auto !important;
+  }
+}
+
+/* Échelle typographique (responsive via clamp — 1440 → 390) */
+@layer components {
+  .t-overline {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .t-display-xl {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.75rem, 6vw, 5rem); /* 44 → 80 */
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
+  /* Hero plein écran — titre dominant (registre landonorris) */
+  .t-hero {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.75rem, 8.5vw, 6.75rem); /* 44 → 108 */
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+  }
+  .t-display {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(2.5rem, 5vw, 4rem); /* 40 → 64 */
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+  .t-h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 3.5vw, 3rem); /* 32 → 48 */
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .t-h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.625rem, 2.6vw, 2.25rem); /* 26 → 36 */
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+  }
+  .t-body-l {
+    font-size: clamp(1.0625rem, 1.2vw, 1.125rem);
+    line-height: 1.55;
+  }
+}
+
+/* Halo ambiant hero — blobs laiton/chrome qui dérivent lentement (tech 2026) */
+@keyframes drift-a {
+  0%, 100% { transform: translate(-6%, -4%) scale(1); }
+  50% { transform: translate(12%, 8%) scale(1.18); }
+}
+@keyframes drift-b {
+  0%, 100% { transform: translate(8%, 6%) scale(1.12); }
+  50% { transform: translate(-10%, -8%) scale(1); }
+}
+
+/* Marquee chrome — défilement infini (2 copies, -50%) */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Lenis smooth-scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

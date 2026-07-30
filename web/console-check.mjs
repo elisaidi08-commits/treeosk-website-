@@ -1,0 +1,15 @@
+import { chromium } from "playwright";
+const [,, url] = process.argv;
+const b = await chromium.launch({ args:["--use-gl=swiftshader"] });
+const p = await (await b.newContext()).newPage();
+const errs = [];
+p.on("console", m => { if (m.type()==="error") errs.push(m.text()); });
+p.on("pageerror", e => errs.push("PAGEERROR: "+e.message));
+await p.goto(url, { waitUntil:"networkidle" });
+await p.waitForTimeout(2500);
+await b.close();
+const hyd = errs.filter(e=>/hydrat|did.?n.?t match|hydration/i.test(e));
+console.log("=== erreurs hydratation:", hyd.length, "===");
+hyd.slice(0,3).forEach(e=>console.log("•", e.slice(0,140)));
+console.log("=== autres erreurs console:", errs.length - hyd.length, "===");
+errs.filter(e=>!/hydrat|did.?n.?t match/i.test(e)).slice(0,5).forEach(e=>console.log("·", e.slice(0,140)));

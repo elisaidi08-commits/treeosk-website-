@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "experiences": "Expériences",
+    "cases": "Réalisations",
+    "howItWorks": "Comment ça marche",
+    "about": "À propos",
+    "bookDemo": "Réserver un appel"
+  },
+  "hero": {
+    "overline": "Pour les marques de luxe & beauté · Moments mesurés",
+    "titleLine1": "Des expériences mémorables.",
+    "titleLine2": "Un impact mesurable.",
+    "subtitle": "Photobooth, gravure, gaming, parfum, bornes et hôtesses virtuelles — nous concevons les moments en magasin dont vos clients se souviennent, avec la donnée pour mesurer chacun d'eux.",
+    "ctaPrimary": "Réserver un appel",
+    "ctaSecondary": "Voir comment ça marche",
+    "visualPlaceholder": "Visuel immersif"
+  },
+  "experiences": {
+    "overline": "Les expériences",
+    "title": "Six façons de rendre un magasin inoubliable.",
+    "subtitle": "Chacune pensée comme un moment — et instrumentée pour en prouver l'impact.",
+    "learnMore": "En savoir plus",
+    "items": {
+      "photobooth": { "name": "Photobooth", "tagline": "Des portraits partageables, à ta marque." },
+      "engraving": { "name": "Gravure", "tagline": "Des souvenirs personnalisés, en direct." },
+      "gaming": { "name": "Gaming", "tagline": "Du temps de jeu qui convertit." },
+      "scent": { "name": "Parfum", "tagline": "La découverte olfactive, rendue tactile." },
+      "kiosk-hostess": { "name": "Borne & hôtesse virtuelle", "tagline": "Un accueil qui ne dort jamais." },
+      "custom": { "name": "Sur-mesure", "tagline": "Des activations uniques, orchestrées." }
+    }
+  },
+  "brands": {
+    "overline": "Les clients",
+    "stat": "300+",
+    "statLabel": "marques nous font confiance — des maisons de luxe aux leaders mondiaux."
+  },
+  "instore": {
+    "overline": "En magasin",
+    "title": "Transformez n'importe quel espace retail en expérience.",
+    "subtitle": "Glisse pour voir comment une installation Treeosk transforme un point de vente — hardware, software et analytics intégrés, déployés partout en Europe.",
+    "labelBefore": "L'espace",
+    "labelAfter": "Avec Treeosk"
+  },
+  "how": {
+    "overline": "Comment ça marche",
+    "title": "Du brief au moment mesurable.",
+    "subtitle": "Cinq étapes, un atelier — du brief au déploiement sur site, chaque moment instrumenté.",
+    "s1t": "Brief",
+    "s1x": "On cadre ta marque, tes KPIs et le moment à créer.",
+    "s2t": "Design 3D",
+    "s2x": "On modélise le kiosque et son expérience en 3D, à ta marque.",
+    "s3t": "Prototype",
+    "s3x": "On fabrique un prototype fonctionnel et on teste l'interaction en réel.",
+    "s4t": "Production",
+    "s4x": "On produit dans notre atelier à Bruxelles — conçu pour durer.",
+    "s5t": "Déploiement",
+    "s5x": "On installe sur site et on branche la couche analytics."
+  },
+  "capabilities": {
+    "overline": "Sous le capot",
+    "title": "Un système intégré.",
+    "hardware": { "label": "Hardware", "title": "Des bornes conçues à Bruxelles.", "desc": "Photobooth, gravure, parfum, gaming — des fabrications premium pensées pour tourner en flagship, jour après jour." },
+    "software": { "label": "Software", "title": "La couche expérience.", "desc": "Interactions à ta marque, gestion de contenu et mises à jour à distance — déployées sur tout ton réseau." },
+    "analytics": { "label": "Analytics", "title": "Chaque moment, mesuré.", "desc": "Dashboards temps réel, RGPD-native. Passage, temps passé et activations — exportables." }
+  },
+  "cases": {
+    "overline": "Réalisations",
+    "title": "Des moments qui font bouger la métrique.",
+    "subtitle": "Quelques moments en magasin qu'on a conçus — et ce qu'ils ont apporté à la marque.",
+    "note": "Chiffres illustratifs — à remplacer par des cas réels.",
+    "c1b": "Maison beauté", "c1p": "Flagship · Paris", "c1v": "+47%", "c1m": "interactions marque vs référence · Photobooth",
+    "c2b": "Maison de mode", "c2p": "Pop-up · Milan", "c2v": "212/h", "c2m": "activations par heure · borne AR",
+    "c3b": "Parfum", "c3p": "Retail · Londres", "c3v": "+22%", "c3m": "temps passé au comptoir · Parfum"
+  },
+  "gallery": {
+    "manifesto": "Chaque visite, un moment qui se mesure."
+  },
+  "statement": {
+    "overline": "La philosophie",
+    "text": "Transformez chaque visite en magasin en conversation mesurable."
+  },
+  "cta": {
+    "title": "Concevons ton prochain moment.",
+    "subtitle": "Bornes, software & analytics intégrés — conçus à Bruxelles, déployés partout en Europe.",
+    "button": "Réserver un appel"
+  },
+  "footer": {
+    "tagline": "Conçu à Bruxelles, déployé partout en Europe.",
+    "colExp": "Expériences",
+    "colCompany": "Entreprise",
+    "colContact": "Contact",
+    "about": "À propos",
+    "cases": "Réalisations",
+    "contact": "Réserver un appel",
+    "rights": "Tous droits réservés."
+  }
+}

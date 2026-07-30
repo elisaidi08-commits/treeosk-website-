@@ -1,0 +1,10 @@
+import { chromium } from "playwright";
+const [,, url, out] = process.argv;
+const b = await chromium.launch({ args:["--use-gl=swiftshader"] });
+const ctx = await b.newContext({ viewport:{width:1440,height:900}, reducedMotion:"reduce" });
+const p = await ctx.newPage();
+await p.goto(url, { waitUntil:"networkidle" });
+await p.evaluate(() => window.scrollTo(0, document.querySelector('section:nth-of-type(2)')?.offsetTop ?? 900));
+await p.waitForTimeout(1200);
+await p.screenshot({ path: out });
+await b.close(); console.log("ok");

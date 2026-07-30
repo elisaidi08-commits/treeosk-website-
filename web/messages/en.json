@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "experiences": "Experiences",
+    "cases": "Cases",
+    "howItWorks": "How it works",
+    "about": "About",
+    "bookDemo": "Book a call"
+  },
+  "hero": {
+    "overline": "For luxury & beauty brands · Measured moments",
+    "titleLine1": "Memorable experiences.",
+    "titleLine2": "Measurable impact.",
+    "subtitle": "Photobooth, engraving, gaming, scent, kiosks and virtual hostesses — we design the in-store moments your customers remember, with the data to measure every one of them.",
+    "ctaPrimary": "Book a call",
+    "ctaSecondary": "See how it works",
+    "visualPlaceholder": "Immersive visual"
+  },
+  "experiences": {
+    "overline": "The experiences",
+    "title": "Six ways to make a store unforgettable.",
+    "subtitle": "Each one designed as a moment — and instrumented to prove its impact.",
+    "learnMore": "Learn more",
+    "items": {
+      "photobooth": { "name": "Photobooth", "tagline": "Shareable portraits, on-brand." },
+      "engraving": { "name": "Engraving", "tagline": "Personalised keepsakes, live." },
+      "gaming": { "name": "Gaming", "tagline": "Playful dwell time that converts." },
+      "scent": { "name": "Scent", "tagline": "Fragrance discovery, made tactile." },
+      "kiosk-hostess": { "name": "Kiosk & virtual hostess", "tagline": "Guidance that never sleeps." },
+      "custom": { "name": "Bespoke", "tagline": "One-off activations, engineered." }
+    }
+  },
+  "brands": {
+    "overline": "The clients",
+    "stat": "300+",
+    "statLabel": "brands trust Treeosk — from luxury maisons to global leaders."
+  },
+  "instore": {
+    "overline": "In-store",
+    "title": "Turn any retail space into an experience.",
+    "subtitle": "Drag to see how a Treeosk installation transforms a store floor — integrated hardware, software and analytics, deployed across Europe.",
+    "labelBefore": "The floor",
+    "labelAfter": "With Treeosk"
+  },
+  "how": {
+    "overline": "How it works",
+    "title": "From brief to measurable moment.",
+    "subtitle": "Five steps, one workshop — from brief to on-site deployment, every moment instrumented.",
+    "s1t": "Brief",
+    "s1x": "We align on your brand, KPIs and the moment to create.",
+    "s2t": "3D design",
+    "s2x": "We model the kiosk and its experience in 3D, on-brand.",
+    "s3t": "Prototype",
+    "s3x": "We build a working prototype and test the interaction for real.",
+    "s4t": "Production",
+    "s4x": "We manufacture in our Brussels workshop — built to last.",
+    "s5t": "Deployment",
+    "s5x": "We install on-site and connect the analytics layer."
+  },
+  "capabilities": {
+    "overline": "Under the hood",
+    "title": "One integrated system.",
+    "hardware": { "label": "Hardware", "title": "Kiosks engineered in Brussels.", "desc": "Photobooth, engraving, scent, gaming — premium builds designed to run in flagship stores, day after day." },
+    "software": { "label": "Software", "title": "The experience layer.", "desc": "On-brand interactions, content management and remote updates — deployed across your whole network." },
+    "analytics": { "label": "Analytics", "title": "Every moment, measured.", "desc": "Real-time, GDPR-native dashboards. Footfall, dwell time and activations — exportable." }
+  },
+  "cases": {
+    "overline": "Selected work",
+    "title": "Moments that moved the metric.",
+    "subtitle": "A few of the in-store moments we designed — and what they did for the brand.",
+    "note": "Illustrative figures — to replace with live case data.",
+    "c1b": "Beauty maison", "c1p": "Flagship · Paris", "c1v": "+47%", "c1m": "brand interactions vs baseline · Photobooth",
+    "c2b": "Fashion house", "c2p": "Pop-up · Milan", "c2v": "212/hr", "c2m": "activations per hour · AR kiosk",
+    "c3b": "Fragrance", "c3p": "Retail · London", "c3v": "+22%", "c3m": "dwell time at the counter · Scent"
+  },
+  "gallery": {
+    "manifesto": "Every visit, a moment worth measuring."
+  },
+  "statement": {
+    "overline": "The philosophy",
+    "text": "Turn every store visit into a measurable conversation."
+  },
+  "cta": {
+    "title": "Let's design your next moment.",
+    "subtitle": "Integrated kiosks, software & analytics — built in Brussels, deployed across Europe.",
+    "button": "Book a call"
+  },
+  "footer": {
+    "tagline": "Built in Brussels, deployed across Europe.",
+    "colExp": "Experiences",
+    "colCompany": "Company",
+    "colContact": "Contact",
+    "about": "About",
+    "cases": "Cases",
+    "contact": "Book a call",
+    "rights": "All rights reserved."
+  }
+}

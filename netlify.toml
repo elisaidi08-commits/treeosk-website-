@@ -1,0 +1,12 @@
+# Netlify — déploiement du site Treeosk (app Next.js dans le sous-dossier web/).
+[build]
+  base = "web"
+  command = "npm run build"
+  publish = ".next"
+
+# Plugin officiel Next.js (SSR/ISR, routes, images) — installé automatiquement par Netlify.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "20"

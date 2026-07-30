@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(/usr/bin/grep -aiE \"error|failed|not found|ssr:|dynamic|⨯|Export\" /private/tmp/claude-501/-Volumes-DISQUE-SADY-13-SCHOOL-01-UX-UI-STAGE-TREEOSK-TREEOSK-DESIGN-SITE/e9bc403c-9a5d-41d9-8e3c-3b89cb08c9c5/tasks/devserver.log)",
+      "Bash(node h8-shot.mjs)",
+      "Bash(/usr/bin/curl -s -o /dev/null -w \"server → %{http_code}\\\\n\" --max-time 120 http://localhost:3737/en)",
+      "Bash(node h10-shot.mjs)",
+      "Bash(node h13-shot.mjs)",
+      "Bash(/usr/bin/grep -rn \"46,90,240\\\\|46, 90, 240\" .)",
+      "Bash(/usr/bin/grep -rni \"2e5af0\\\\|4d74ff\" .)",
+      "Bash(/usr/bin/grep -rn \"text-accent\\\\|bg-accent\\\\|border-accent\\\\|outline-accent\\\\|accent/70\\\\|accent-hover\" .)",
+      "Bash(/usr/bin/grep -rn 'variant=\"cobalt\"\\\\|\"cobalt\"' .)",
+      "Bash(rm -f app/\\\\[locale\\\\]/hero2/page.tsx)",
+      "Bash(rmdir \"app/[locale]/hero2\")",
+      "Bash(rm -f components/sections/HeroMonochrome.tsx)",
+      "Bash(/usr/bin/grep -rl \"HeroMonochrome\\\\|hero2\" .)",
+      "Bash(/usr/bin/grep -qiE 'downloaded to|is already|Failed|Error' /private/tmp/claude-501/-Volumes-DISQUE-SADY-13-SCHOOL-01-UX-UI-STAGE-TREEOSK-TREEOSK-DESIGN-SITE/e9bc403c-9a5d-41d9-8e3c-3b89cb08c9c5/tasks/bhhe5xu3n.output)",
+      "Bash(/usr/bin/grep -iE 'chromium|downloaded|already|error' /private/tmp/claude-501/-Volumes-DISQUE-SADY-13-SCHOOL-01-UX-UI-STAGE-TREEOSK-TREEOSK-DESIGN-SITE/e9bc403c-9a5d-41d9-8e3c-3b89cb08c9c5/tasks/bhhe5xu3n.output)",
+      "Bash(/usr/bin/tail -2)",
+      "Bash(node h16-shot.mjs)",
+      "Bash(/bin/ls hero *)",
+      "Bash(/bin/ls experiences *)",
+      "Bash(/bin/ls textures *)",
+      "Bash(/bin/ls instore *)",
+      "Bash(/usr/bin/curl -s -o /dev/null -w \"/en → %{http_code}\\\\n\" --max-time 120 http://localhost:3737/en)",
+      "Bash(/usr/bin/curl -s -o /dev/null -w \"server → %{http_code}\\\\n\" --max-time 60 http://localhost:3737/en)",
+      "Bash(/usr/sbin/lsof -nP -iTCP:3737 -sTCP:LISTEN)",
+      "Bash(/usr/bin/tail -1)",
+      "Bash(/usr/bin/grep -aiE \"ready|error|⨯|compiling|slow filesystem\" /private/tmp/claude-501/-Volumes-DISQUE-SADY-13-SCHOOL-01-UX-UI-STAGE-TREEOSK-TREEOSK-DESIGN-SITE/e9bc403c-9a5d-41d9-8e3c-3b89cb08c9c5/tasks/devserver.log)",
+      "Bash(/usr/bin/tail -5)",
+      "Bash(/usr/bin/curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 200 http://localhost:3737/en)"
+    ]
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "experiences": "Ervaringen",
+    "cases": "Cases",
+    "howItWorks": "Hoe het werkt",
+    "about": "Over ons",
+    "bookDemo": "Boek een gesprek"
+  },
+  "hero": {
+    "overline": "Voor luxe- & beautymerken · Meetbare momenten",
+    "titleLine1": "Memorabele ervaringen.",
+    "titleLine2": "Meetbare impact.",
+    "subtitle": "Photobooth, gravure, gaming, geur, kiosken en virtuele gastvrouwen — wij ontwerpen de in-store momenten die uw klanten onthouden, met de data om ze allemaal te meten.",
+    "ctaPrimary": "Boek een gesprek",
+    "ctaSecondary": "Ontdek hoe het werkt",
+    "visualPlaceholder": "Immersief beeld"
+  },
+  "experiences": {
+    "overline": "De ervaringen",
+    "title": "Zes manieren om een winkel onvergetelijk te maken.",
+    "subtitle": "Elk ontworpen als een moment — en gemeten om de impact te bewijzen.",
+    "learnMore": "Meer weten",
+    "items": {
+      "photobooth": { "name": "Photobooth", "tagline": "Deelbare portretten, on-brand." },
+      "engraving": { "name": "Gravure", "tagline": "Gepersonaliseerde souvenirs, live." },
+      "gaming": { "name": "Gaming", "tagline": "Speelse verblijftijd die converteert." },
+      "scent": { "name": "Geur", "tagline": "Geurbeleving, tastbaar gemaakt." },
+      "kiosk-hostess": { "name": "Kiosk & virtuele gastvrouw", "tagline": "Onthaal dat nooit slaapt." },
+      "custom": { "name": "Op maat", "tagline": "Unieke activaties, doordacht." }
+    }
+  },
+  "brands": {
+    "overline": "De klanten",
+    "stat": "300+",
+    "statLabel": "merken vertrouwen Treeosk — van luxehuizen tot wereldspelers."
+  },
+  "instore": {
+    "overline": "In-store",
+    "title": "Maak van elke retailruimte een ervaring.",
+    "subtitle": "Sleep om te zien hoe een Treeosk-installatie een winkelvloer transformeert — geïntegreerde hardware, software en analytics, uitgerold in heel Europa.",
+    "labelBefore": "De ruimte",
+    "labelAfter": "Met Treeosk"
+  },
+  "how": {
+    "overline": "Hoe het werkt",
+    "title": "Van briefing tot meetbaar moment.",
+    "subtitle": "Vijf stappen, één atelier — van briefing tot uitrol op locatie, elk moment gemeten.",
+    "s1t": "Briefing",
+    "s1x": "We stemmen je merk, KPI's en het te creëren moment af.",
+    "s2t": "3D-ontwerp",
+    "s2x": "We modelleren de kiosk en de ervaring in 3D, on-brand.",
+    "s3t": "Prototype",
+    "s3x": "We bouwen een werkend prototype en testen de interactie echt.",
+    "s4t": "Productie",
+    "s4x": "We produceren in ons atelier in Brussel — gemaakt om te blijven.",
+    "s5t": "Uitrol",
+    "s5x": "We installeren op locatie en koppelen de analyticslaag."
+  },
+  "capabilities": {
+    "overline": "Onder de motorkap",
+    "title": "Eén geïntegreerd systeem.",
+    "hardware": { "label": "Hardware", "title": "Kiosken gebouwd in Brussel.", "desc": "Photobooth, gravure, geur, gaming — premium bouw gemaakt om te draaien in flagshipstores, dag na dag." },
+    "software": { "label": "Software", "title": "De ervaringslaag.", "desc": "On-brand interacties, contentbeheer en updates op afstand — uitgerold over je hele netwerk." },
+    "analytics": { "label": "Analytics", "title": "Elk moment, gemeten.", "desc": "Realtime, GDPR-native dashboards. Bezoek, verblijftijd en activaties — exporteerbaar." }
+  },
+  "cases": {
+    "overline": "Selectie",
+    "title": "Momenten die de cijfers bewogen.",
+    "subtitle": "Enkele in-store momenten die we ontwierpen — en wat ze voor het merk deden.",
+    "note": "Illustratieve cijfers — te vervangen door echte cases.",
+    "c1b": "Beautyhuis", "c1p": "Flagship · Parijs", "c1v": "+47%", "c1m": "merkinteracties vs basis · Photobooth",
+    "c2b": "Modehuis", "c2p": "Pop-up · Milaan", "c2v": "212/u", "c2m": "activaties per uur · AR-kiosk",
+    "c3b": "Parfum", "c3p": "Retail · Londen", "c3v": "+22%", "c3m": "verblijftijd aan de toonbank · Geur"
+  },
+  "gallery": {
+    "manifesto": "Elk bezoek, een meetbaar moment."
+  },
+  "statement": {
+    "overline": "De filosofie",
+    "text": "Maak van elk winkelbezoek een meetbaar gesprek."
+  },
+  "cta": {
+    "title": "Laten we je volgende moment ontwerpen.",
+    "subtitle": "Geïntegreerde kiosken, software & analytics — gemaakt in Brussel, uitgerold in heel Europa.",
+    "button": "Boek een gesprek"
+  },
+  "footer": {
+    "tagline": "Gemaakt in Brussel, uitgerold in heel Europa.",
+    "colExp": "Ervaringen",
+    "colCompany": "Bedrijf",
+    "colContact": "Contact",
+    "about": "Over ons",
+    "cases": "Cases",
+    "contact": "Boek een gesprek",
+    "rights": "Alle rechten voorbehouden."
+  }
+}
