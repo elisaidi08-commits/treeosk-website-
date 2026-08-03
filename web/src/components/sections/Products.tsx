@@ -1,21 +1,19 @@
 "use client";
 
 import { useRef, useState } from "react";
-import {
-  AnimatePresence,
-  motion,
-  useScroll,
-  useMotionValueEvent,
-  useReducedMotion,
-} from "framer-motion";
+import dynamic from "next/dynamic";
+import { AnimatePresence, motion, useScroll, useMotionValueEvent, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import Container from "@/components/layout/Container";
 
+// Kiosque 3D modulaire (WebGL, client only).
+const KioskMorph3D = dynamic(() => import("@/components/sections/KioskMorph3D"), { ssr: false });
+
 /**
- * Products / Expériences — SCROLLYTELLING immersif (brief refonte) : on défile les 6
- * expériences une par une ; le TEXTE reste fixé à gauche (lisible tout du long), le VISUEL
- * à droite se construit (reveal), et l'UI se teinte de la COULEUR de l'expérience active.
- * Base neutre silver-chrome ; la couleur n'apparaît que par expérience. Reduced-motion → liste.
+ * Products / Expériences — PRODUCT MORPHING (brief animation) : un vrai kiosque Treeosk en 3D
+ * reste fixe à droite et se transforme selon l'expérience active (un module se déploie), pendant
+ * que le texte reste fixé à gauche. Le fond se teinte doucement de la couleur de l'expérience.
+ * Reduced-motion → liste statique.
  */
 type Experience = { slug: string; accent: string };
 
@@ -40,7 +38,7 @@ export default function Products() {
     setActive(i);
   });
 
-  // --- Reduced-motion : liste statique simple (pas de scroll pinné) -------------------------
+  // --- Reduced-motion : liste statique ------------------------------------------------------
   if (reduce) {
     return (
       <section id="products" className="bg-canvas py-20 md:py-28">
@@ -77,84 +75,69 @@ export default function Products() {
       id="products"
       ref={ref}
       className="relative bg-canvas"
-      style={{ height: `${EXPERIENCES.length * 88}vh` }}
+      style={{ height: `${EXPERIENCES.length * 90}vh` }}
     >
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        {/* Halo teinté de la couleur de l'expérience active (subtil) */}
+      <div className="sticky top-0 h-screen overflow-hidden">
+        {/* Background interpolation — teinte douce de la couleur de l'expérience (0.8s linear) */}
         <div
-          className="pointer-events-none absolute right-[6%] top-1/2 h-[70vh] w-[70vh] -translate-y-1/2 rounded-full opacity-40 blur-[150px] transition-colors duration-700"
-          style={{ background: `radial-gradient(circle, ${exp.accent}, transparent 62%)` }}
+          className="pointer-events-none absolute inset-0"
+          style={{ backgroundColor: exp.accent, opacity: 0.08, transition: "background-color 0.8s linear, opacity 0.8s linear" }}
         />
 
-        <Container className="relative grid w-full items-center gap-10 md:grid-cols-2 md:gap-16">
-          {/* Colonne texte — FIXE (reste lisible tout du long) */}
-          <div className="order-2 md:order-1">
-            <p className="t-overline text-fg-subtle">
-              {t("overline")} · <span style={{ color: exp.accent }}>{counter}</span>
-            </p>
+        <div className="relative flex h-full items-center">
+          <Container className="grid w-full items-center gap-8 md:grid-cols-2 md:gap-14">
+            {/* Colonne texte — FIXE (reste lisible tout du long) */}
+            <div className="order-2 md:order-1">
+              <p className="t-overline text-fg-subtle">
+                {t("overline")} · <span style={{ color: exp.accent }}>{counter}</span>
+              </p>
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={exp.slug}
-                initial={{ opacity: 0, y: 22 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -18 }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <span className="mt-7 block h-[3px] w-12" style={{ background: exp.accent }} />
-                <h2 className="mt-6 font-sans text-[clamp(2.2rem,5vw,4rem)] font-medium leading-[1.02] tracking-[-0.03em] text-fg">
-                  {t(`items.${exp.slug}.name`)}
-                </h2>
-                <p className="mt-4 max-w-md text-[clamp(1rem,1.4vw,1.15rem)] leading-relaxed text-fg-muted">
-                  {t(`items.${exp.slug}.tagline`)}
-                </p>
-                <a
-                  href="#cases"
-                  className="mt-8 inline-flex items-center gap-2 rounded-pill border px-6 py-3 text-sm font-medium transition-colors"
-                  style={{ color: exp.accent, borderColor: exp.accent }}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={exp.slug}
+                  initial={{ opacity: 0, y: 22 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -18 }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                 >
-                  {t("learnMore")}
-                  <span aria-hidden>→</span>
-                </a>
-              </motion.div>
-            </AnimatePresence>
+                  <span className="mt-7 block h-[3px] w-12" style={{ background: exp.accent }} />
+                  <h2 className="mt-6 font-sans text-[clamp(2.2rem,5vw,4rem)] font-medium leading-[1.02] tracking-[-0.03em] text-fg">
+                    {t(`items.${exp.slug}.name`)}
+                  </h2>
+                  <p className="mt-4 max-w-md text-[clamp(1rem,1.4vw,1.15rem)] leading-relaxed text-fg-muted">
+                    {t(`items.${exp.slug}.tagline`)}
+                  </p>
+                  <a
+                    href="#cases"
+                    className="mt-8 inline-flex items-center gap-2 rounded-pill border px-6 py-3 text-sm font-medium transition-colors"
+                    style={{ color: exp.accent, borderColor: exp.accent }}
+                  >
+                    {t("learnMore")}
+                    <span aria-hidden>→</span>
+                  </a>
+                </motion.div>
+              </AnimatePresence>
 
-            {/* Indicateur des 6 */}
-            <div className="mt-12 flex items-center gap-2">
-              {EXPERIENCES.map((e, i) => (
-                <span
-                  key={e.slug}
-                  className="h-1.5 rounded-full transition-all duration-300"
-                  style={{
-                    width: i === active ? 26 : 8,
-                    background: i === active ? e.accent : "var(--color-hairline)",
-                  }}
-                />
-              ))}
+              <div className="mt-12 flex items-center gap-2">
+                {EXPERIENCES.map((e, i) => (
+                  <span
+                    key={e.slug}
+                    className="h-1.5 rounded-full transition-all duration-300"
+                    style={{
+                      width: i === active ? 26 : 8,
+                      background: i === active ? e.accent : "var(--color-hairline)",
+                    }}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Colonne visuel — se construit (reveal) à chaque expérience */}
-          <div className="relative order-1 aspect-[4/5] w-full overflow-hidden rounded-[14px] md:order-2">
-            <AnimatePresence mode="popLayout">
-              <motion.img
-                key={exp.slug}
-                src={`/media/experiences/${exp.slug}.webp`}
-                alt={t(`items.${exp.slug}.name`)}
-                initial={{ opacity: 0, scale: 1.08, clipPath: "inset(100% 0 0 0)" }}
-                animate={{ opacity: 1, scale: 1, clipPath: "inset(0% 0 0 0)" }}
-                exit={{ opacity: 0, scale: 1.02 }}
-                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-            </AnimatePresence>
-            {/* filet teinté */}
-            <div
-              className="pointer-events-none absolute inset-0 rounded-[14px] border transition-colors duration-500"
-              style={{ borderColor: exp.accent }}
-            />
-          </div>
-        </Container>
+            {/* Colonne produit — kiosque 3D FIXE qui se transforme */}
+            <div className="relative order-1 h-[46vh] w-full md:order-2 md:h-[78vh]">
+              <KioskMorph3D active={active} accent={exp.accent} />
+            </div>
+          </Container>
+        </div>
       </div>
     </section>
   );
