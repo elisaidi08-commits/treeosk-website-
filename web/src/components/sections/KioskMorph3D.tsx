@@ -72,32 +72,39 @@ export default function KioskMorph3D({
     envTex.colorSpace = THREE.SRGBColorSpace;
     scene.environment = envTex;
 
-    const chromeMats: THREE.MeshStandardMaterial[] = [];
+    // Matériau PHYSIQUE avec clearcoat (fini produit réaliste, moins « CGI »).
+    const chromeMats: THREE.MeshPhysicalMaterial[] = [];
     const chrome = () => {
-      const m = new THREE.MeshStandardMaterial({
+      const m = new THREE.MeshPhysicalMaterial({
         color: 0xeceef0,
         metalness: 1,
         roughness: 0.1,
+        clearcoat: 1,
+        clearcoatRoughness: 0.12,
         envMap: envTex,
-        envMapIntensity: 2.1,
+        envMapIntensity: 2.0,
       });
       chromeMats.push(m);
       return m;
     };
-    // Finition selon le thème : BLANC satiné en light, chrome miroir en dark.
+    // Finition selon le thème : BLANC laqué (clearcoat) en light, chrome miroir en dark.
     let curLight: boolean | null = null;
     const applyFinish = (isLight: boolean) => {
       chromeMats.forEach((m) => {
         if (isLight) {
           m.color.setHex(0xffffff);
-          m.metalness = 0.18;
-          m.roughness = 0.42;
-          m.envMapIntensity = 0.5;
+          m.metalness = 0.0;
+          m.roughness = 0.5;
+          m.clearcoat = 1;
+          m.clearcoatRoughness = 0.28;
+          m.envMapIntensity = 0.7;
         } else {
           m.color.setHex(0xeceef0);
           m.metalness = 1;
-          m.roughness = 0.1;
-          m.envMapIntensity = 2.1;
+          m.roughness = 0.08;
+          m.clearcoat = 1;
+          m.clearcoatRoughness = 0.1;
+          m.envMapIntensity = 2.0;
         }
       });
     };
@@ -132,6 +139,26 @@ export default function KioskMorph3D({
 
     kiosk.position.y = 0.12;
     scene.add(kiosk);
+
+    // Ombre de contact douce au sol (« pose » la borne — gros gain de réalisme)
+    const shcnv = document.createElement("canvas");
+    shcnv.width = 256;
+    shcnv.height = 256;
+    const shx = shcnv.getContext("2d")!;
+    const rg = shx.createRadialGradient(128, 128, 8, 128, 128, 128);
+    rg.addColorStop(0, "rgba(0,0,0,0.55)");
+    rg.addColorStop(0.55, "rgba(0,0,0,0.2)");
+    rg.addColorStop(1, "rgba(0,0,0,0)");
+    shx.fillStyle = rg;
+    shx.fillRect(0, 0, 256, 256);
+    const shadowTex = new THREE.CanvasTexture(shcnv);
+    const shadow = new THREE.Mesh(
+      new THREE.PlaneGeometry(4.6, 2.4),
+      new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }),
+    );
+    shadow.rotation.x = -Math.PI / 2;
+    shadow.position.set(0, -1.62, 0.1);
+    scene.add(shadow);
 
     // ---- MODULES (un par expérience) ------------------------------------------------------
     const modules: THREE.Group[] = [];
@@ -220,16 +247,20 @@ export default function KioskMorph3D({
     });
 
     // ---- Lumières -------------------------------------------------------------------------
-    const key = new THREE.DirectionalLight(0xffffff, 2.1);
-    key.position.set(4, 5, 5);
+    // Éclairage studio adouci (key + fill + rim) → séparation, moins « flat CGI ».
+    const key = new THREE.DirectionalLight(0xffffff, 1.7);
+    key.position.set(4, 6, 5);
     scene.add(key);
-    const fill = new THREE.DirectionalLight(0xdfe1e3, 1.0);
+    const fill = new THREE.DirectionalLight(0xdfe1e3, 0.85);
     fill.position.set(-5, 2, 3);
     scene.add(fill);
-    const accentLight = new THREE.PointLight(0x3a5a7a, 6, 18);
+    const rim = new THREE.DirectionalLight(0xffffff, 0.9);
+    rim.position.set(-2, 3, -5);
+    scene.add(rim);
+    const accentLight = new THREE.PointLight(0x3a5a7a, 5, 18);
     accentLight.position.set(0, 0.4, 3);
     scene.add(accentLight);
-    scene.add(new THREE.AmbientLight(0xcbced2, 0.55));
+    scene.add(new THREE.AmbientLight(0xcbced2, 0.5));
 
     const mouse = new THREE.Vector2(0, 0);
     const onMove = (e: MouseEvent) => {
@@ -285,6 +316,7 @@ export default function KioskMorph3D({
         }
       });
       envTex.dispose();
+      shadowTex.dispose();
       renderer.dispose();
       if (renderer.domElement.parentNode === mount) mount.removeChild(renderer.domElement);
     };

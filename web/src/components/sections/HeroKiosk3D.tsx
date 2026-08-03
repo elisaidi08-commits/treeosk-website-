@@ -53,26 +53,30 @@ export default function HeroKiosk3D({ light = true }: { light?: boolean }) {
     envTex.colorSpace = THREE.SRGBColorSpace;
     scene.environment = envTex;
 
-    const chrome = new THREE.MeshStandardMaterial({
+    const chrome = new THREE.MeshPhysicalMaterial({
       color: 0xeef0f2,
       metalness: 1,
       roughness: 0.08,
+      clearcoat: 1,
+      clearcoatRoughness: 0.1,
       envMap: envTex,
-      envMapIntensity: 2.2,
+      envMapIntensity: 2.0,
     });
-    // Finition selon le thème : BLANC satiné en light, chrome miroir en dark.
+    // Finition selon le thème : BLANC laqué (clearcoat) en light, chrome miroir en dark.
     let curLight: boolean | null = null;
     const applyFinish = (isLight: boolean) => {
       if (isLight) {
         chrome.color.setHex(0xffffff);
-        chrome.metalness = 0.18;
-        chrome.roughness = 0.42;
-        chrome.envMapIntensity = 0.5;
+        chrome.metalness = 0.0;
+        chrome.roughness = 0.5;
+        chrome.clearcoatRoughness = 0.28;
+        chrome.envMapIntensity = 0.7;
       } else {
         chrome.color.setHex(0xeef0f2);
         chrome.metalness = 1;
         chrome.roughness = 0.08;
-        chrome.envMapIntensity = 2.2;
+        chrome.clearcoatRoughness = 0.1;
+        chrome.envMapIntensity = 2.0;
       }
     };
 
@@ -94,16 +98,39 @@ export default function HeroKiosk3D({ light = true }: { light?: boolean }) {
     kiosk.position.y = 0.12;
     scene.add(kiosk);
 
-    const key = new THREE.DirectionalLight(0xffffff, 2.1);
-    key.position.set(4, 5, 5);
+    // Ombre de contact douce au sol (réalisme)
+    const shcnv = document.createElement("canvas");
+    shcnv.width = 256;
+    shcnv.height = 256;
+    const shx = shcnv.getContext("2d")!;
+    const rg = shx.createRadialGradient(128, 128, 8, 128, 128, 128);
+    rg.addColorStop(0, "rgba(0,0,0,0.5)");
+    rg.addColorStop(0.55, "rgba(0,0,0,0.18)");
+    rg.addColorStop(1, "rgba(0,0,0,0)");
+    shx.fillStyle = rg;
+    shx.fillRect(0, 0, 256, 256);
+    const shadowTex = new THREE.CanvasTexture(shcnv);
+    const shadow = new THREE.Mesh(
+      new THREE.PlaneGeometry(4.6, 2.4),
+      new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }),
+    );
+    shadow.rotation.x = -Math.PI / 2;
+    shadow.position.set(0, -1.62, 0.1);
+    scene.add(shadow);
+
+    const key = new THREE.DirectionalLight(0xffffff, 1.7);
+    key.position.set(4, 6, 5);
     scene.add(key);
-    const fill = new THREE.DirectionalLight(0xdfe1e3, 1.0);
+    const fill = new THREE.DirectionalLight(0xdfe1e3, 0.85);
     fill.position.set(-5, 2, 3);
     scene.add(fill);
-    const steel = new THREE.PointLight(0x3a5a7a, 6, 18);
+    const rim = new THREE.DirectionalLight(0xffffff, 0.9);
+    rim.position.set(-2, 3, -5);
+    scene.add(rim);
+    const steel = new THREE.PointLight(0x3a5a7a, 5, 18);
     steel.position.set(-3, -1, 3);
     scene.add(steel);
-    scene.add(new THREE.AmbientLight(0xcbced2, 0.55));
+    scene.add(new THREE.AmbientLight(0xcbced2, 0.5));
 
     const mouse = new THREE.Vector2(0, 0);
     const onMove = (e: MouseEvent) => {
@@ -149,6 +176,7 @@ export default function HeroKiosk3D({ light = true }: { light?: boolean }) {
         }
       });
       envTex.dispose();
+      shadowTex.dispose();
       renderer.dispose();
       if (renderer.domElement.parentNode === mount) mount.removeChild(renderer.domElement);
     };
