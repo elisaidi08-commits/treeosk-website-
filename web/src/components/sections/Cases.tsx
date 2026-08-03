@@ -1,51 +1,53 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion, animate, useInView } from "framer-motion";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import { AnimatePresence, motion } from "framer-motion";
+import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import Container from "@/components/layout/Container";
-import Tilt3D from "@/components/ui/Tilt3D";
 import RevealMask from "@/components/ui/RevealMask";
 
-function Counter({ value }: { value: string }) {
-  const m = value.match(/[\d.]+/);
-  const target = m ? parseFloat(m[0]) : 0;
-  const prefix = m ? value.slice(0, m.index) : value;
-  const suffix = m ? value.slice((m.index ?? 0) + m[0].length) : "";
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-  const [n, setN] = useState(0);
-  useEffect(() => {
-    if (!inView) return;
-    const c = animate(0, target, {
-      duration: 1.4,
-      ease: [0.2, 0.65, 0.3, 0.9],
-      onUpdate: (v) => setN(v),
-    });
-    return () => c.stop();
-  }, [inView, target]);
-  return (
-    <span ref={ref}>
-      {prefix}
-      {Math.round(n)}
-      {suffix}
-    </span>
-  );
-}
+// « Télé » 3D (WebGL, client only) qui affiche du texte.
+const WorkScreen3D = dynamic(() => import("@/components/sections/WorkScreen3D"), { ssr: false });
 
 /**
- * Cases / Réalisations — cartes projet : VISUEL réel (nos médias en attendant les vraies
- * photos clients — bloquées Dropbox), N&B qui passe en couleur au survol, métrique animée,
- * marque + lieu. COULEUR d'accent PAR PROJET (filet + métrique au survol) — base neutre.
+ * Selected Work — plus de chiffres ni de photos : une « télé » Treeosk en full 3D affiche EN
+ * TEXTE ce que fait Treeosk (cycle les 6 expériences), et un CARROUSEL détaille « comment ça
+ * fonctionne » (les 5 étapes du process), avec navigation + autoplay.
  */
-const CASES = [
-  { key: "c1", media: "photobooth", accent: "#A8607A" },
-  { key: "c2", media: "kiosk-hostess", accent: "#5B6B7A" },
-  { key: "c3", media: "scent", accent: "#5E8B72" },
+const WHAT = [
+  { slug: "photobooth", accent: "#BE5A7C" },
+  { slug: "engraving", accent: "#B8925A" },
+  { slug: "gaming", accent: "#3E9C82" },
+  { slug: "scent", accent: "#8A7BB2" },
+  { slug: "kiosk-hostess", accent: "#5B8FB0" },
+  { slug: "custom", accent: "#7E8896" },
 ];
+const STEPS = ["s1", "s2", "s3", "s4", "s5"];
 
 export default function Cases() {
   const t = useTranslations("cases");
+  const te = useTranslations("experiences");
+  const th = useTranslations("how");
+  const { resolvedTheme } = useTheme();
+  const light = resolvedTheme !== "dark";
+
+  const [tv, setTv] = useState(0);
+  const [slide, setSlide] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => setTv((v) => (v + 1) % WHAT.length), 2600);
+    return () => clearInterval(id);
+  }, []);
+  useEffect(() => {
+    const id = setInterval(() => setSlide((v) => (v + 1) % STEPS.length), 4500);
+    return () => clearInterval(id);
+  }, []);
+
+  const cur = WHAT[tv];
+  const step = STEPS[slide];
+  const go = (d: number) => setSlide((s) => (s + d + STEPS.length) % STEPS.length);
 
   return (
     <section id="cases" className="bg-canvas py-20 md:py-28">
@@ -64,44 +66,69 @@ export default function Cases() {
           <p className="t-body-l mt-4 text-fg-muted">{t("subtitle")}</p>
         </motion.div>
 
-        <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-3">
-          {CASES.map((c, i) => (
-            <Tilt3D
-              key={c.key}
-              delay={i * 0.08}
-              max={5}
-              className="group relative flex h-full flex-col overflow-hidden rounded-[14px] border border-hairline bg-surface transition-colors duration-300"
-            >
-              {/* Visuel du projet */}
-              <div className="relative aspect-[16/11] overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`/media/experiences/${c.media}.webp`}
-                  alt={t(`${c.key}b`)}
-                  className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-[1.05] group-hover:grayscale-0"
-                />
-                <span
-                  className="absolute left-0 top-0 h-1 w-full origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
-                  style={{ background: c.accent }}
-                />
-              </div>
+        <div className="mt-14 grid items-center gap-12 md:mt-16 lg:grid-cols-2 lg:gap-16">
+          {/* Télé 3D — affiche ce que fait Treeosk */}
+          <div className="relative order-1 h-[44vh] w-full lg:h-[62vh]">
+            <WorkScreen3D text={te(`items.${cur.slug}.name`)} accent={cur.accent} light={light} />
+          </div>
 
-              {/* Contenu */}
-              <div className="flex flex-1 flex-col p-7">
-                <p className="font-sans text-[clamp(2.25rem,4vw,3.25rem)] font-medium leading-none tracking-[-0.02em] tabular-nums text-fg">
-                  <Counter value={t(`${c.key}v`)} />
-                </p>
-                <p className="mt-3 flex-1 text-[15px] leading-relaxed text-fg-muted">{t(`${c.key}m`)}</p>
-                <div className="mt-6 flex items-center gap-2 border-t border-hairline pt-5">
-                  <span className="h-2 w-2 rounded-full" style={{ background: c.accent }} />
-                  <p className="font-sans text-[15px] font-medium text-fg">{t(`${c.key}b`)}</p>
-                  <span className="t-overline ml-auto text-fg-subtle">{t(`${c.key}p`)}</span>
-                </div>
+          {/* Carrousel — comment ça fonctionne */}
+          <div className="order-2">
+            <p className="t-overline text-fg-subtle">{th("overline")}</p>
+
+            <div className="relative mt-6 min-h-[240px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={step}
+                  initial={{ opacity: 0, x: 26 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -26 }}
+                  transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <span className="font-sans text-[clamp(3rem,6vw,4.5rem)] font-medium leading-none tracking-[-0.03em] text-hairline">
+                    0{slide + 1}
+                  </span>
+                  <h3 className="mt-4 font-sans text-[clamp(1.6rem,3vw,2.4rem)] font-medium leading-tight tracking-[-0.02em] text-fg">
+                    {th(`${step}t`)}
+                  </h3>
+                  <p className="mt-4 max-w-md text-[15px] leading-relaxed text-fg-muted">{th(`${step}x`)}</p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Navigation */}
+            <div className="mt-10 flex items-center gap-5">
+              <button
+                onClick={() => go(-1)}
+                aria-label="Précédent"
+                className="flex size-10 items-center justify-center rounded-full border border-hairline text-fg transition hover:border-accent hover:text-accent"
+              >
+                ←
+              </button>
+              <div className="flex items-center gap-2">
+                {STEPS.map((s, i) => (
+                  <button
+                    key={s}
+                    onClick={() => setSlide(i)}
+                    aria-label={`Étape ${i + 1}`}
+                    className="h-1.5 rounded-full transition-all duration-300"
+                    style={{
+                      width: i === slide ? 26 : 8,
+                      background: i === slide ? "var(--color-accent)" : "var(--color-hairline)",
+                    }}
+                  />
+                ))}
               </div>
-            </Tilt3D>
-          ))}
+              <button
+                onClick={() => go(1)}
+                aria-label="Suivant"
+                className="flex size-10 items-center justify-center rounded-full border border-hairline text-fg transition hover:border-accent hover:text-accent"
+              >
+                →
+              </button>
+            </div>
+          </div>
         </div>
-        <p className="mt-6 text-[12px] text-fg-subtle">{t("note")}</p>
       </Container>
     </section>
   );
