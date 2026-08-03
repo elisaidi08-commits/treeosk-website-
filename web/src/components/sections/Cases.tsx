@@ -34,17 +34,19 @@ function Counter({ value }: { value: string }) {
 }
 
 /**
- * Cases — cartes éditoriales façon « testimonial » (mécanique adaptée du composant 21st
- * « Testimonials » de santiago) : glyphe guillemet, stagger à l'entrée, hover-lift —
- * réhabillées DA greyscale. La métrique illustrative sert d'accroche.
+ * Cases / Réalisations — cartes projet : VISUEL réel (nos médias en attendant les vraies
+ * photos clients — bloquées Dropbox), N&B qui passe en couleur au survol, métrique animée,
+ * marque + lieu. COULEUR d'accent PAR PROJET (filet + métrique au survol) — base neutre.
  */
+const CASES = [
+  { key: "c1", media: "photobooth", accent: "#A8607A" },
+  { key: "c2", media: "kiosk-hostess", accent: "#5B6B7A" },
+  { key: "c3", media: "scent", accent: "#5E8B72" },
+];
+
 export default function Cases() {
   const t = useTranslations("cases");
-  const items = [
-    { b: t("c1b"), p: t("c1p"), v: t("c1v"), m: t("c1m") },
-    { b: t("c2b"), p: t("c2p"), v: t("c2v"), m: t("c2m") },
-    { b: t("c3b"), p: t("c3p"), v: t("c3v"), m: t("c3m") },
-  ];
+
   return (
     <section id="cases" className="bg-canvas py-20 md:py-28">
       <Container>
@@ -63,26 +65,38 @@ export default function Cases() {
         </motion.div>
 
         <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-3">
-          {items.map((it, i) => (
+          {CASES.map((c, i) => (
             <Tilt3D
-              key={i}
+              key={c.key}
               delay={i * 0.08}
-              max={6}
-              className="group relative flex h-full flex-col rounded-[14px] border border-hairline bg-surface p-8 transition-colors duration-300 hover:border-steel-400"
+              max={5}
+              className="group relative flex h-full flex-col overflow-hidden rounded-[14px] border border-hairline bg-surface transition-colors duration-300"
             >
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -top-2 left-5 select-none font-sans text-7xl leading-none text-hairline"
-              >
-                &ldquo;
-              </span>
-              <p className="mt-8 font-sans text-[clamp(2.5rem,4.5vw,3.5rem)] font-medium leading-none tracking-[-0.02em] text-fg tabular-nums">
-                <Counter value={it.v} />
-              </p>
-              <p className="mt-4 flex-1 text-[15px] leading-relaxed text-fg-muted">{it.m}</p>
-              <div className="mt-6 border-t border-hairline pt-5">
-                <p className="font-sans text-[15px] font-medium text-fg">{it.b}</p>
-                <p className="t-overline mt-1 text-fg-subtle">{it.p}</p>
+              {/* Visuel du projet */}
+              <div className="relative aspect-[16/11] overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`/media/experiences/${c.media}.png`}
+                  alt={t(`${c.key}b`)}
+                  className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-[1.05] group-hover:grayscale-0"
+                />
+                <span
+                  className="absolute left-0 top-0 h-1 w-full origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100"
+                  style={{ background: c.accent }}
+                />
+              </div>
+
+              {/* Contenu */}
+              <div className="flex flex-1 flex-col p-7">
+                <p className="font-sans text-[clamp(2.25rem,4vw,3.25rem)] font-medium leading-none tracking-[-0.02em] tabular-nums text-fg">
+                  <Counter value={t(`${c.key}v`)} />
+                </p>
+                <p className="mt-3 flex-1 text-[15px] leading-relaxed text-fg-muted">{t(`${c.key}m`)}</p>
+                <div className="mt-6 flex items-center gap-2 border-t border-hairline pt-5">
+                  <span className="h-2 w-2 rounded-full" style={{ background: c.accent }} />
+                  <p className="font-sans text-[15px] font-medium text-fg">{t(`${c.key}b`)}</p>
+                  <span className="t-overline ml-auto text-fg-subtle">{t(`${c.key}p`)}</span>
+                </div>
               </div>
             </Tilt3D>
           ))}
