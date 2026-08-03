@@ -1,6 +1,6 @@
 {
   "nav": {
-    "experiences": "Expériences",
+    "experiences": "Produits",
     "cases": "Réalisations",
     "howItWorks": "Comment ça marche",
     "about": "À propos",
@@ -11,8 +11,8 @@
     "titleLine1": "Des expériences mémorables.",
     "titleLine2": "Un impact mesurable.",
     "subtitle": "Photobooth, gravure, gaming, parfum, bornes et hôtesses virtuelles — nous concevons les moments en magasin dont vos clients se souviennent, avec la donnée pour mesurer chacun d'eux.",
-    "ctaPrimary": "Réserver un appel",
-    "ctaSecondary": "Voir comment ça marche",
+    "ctaPrimary": "Découvrir les produits",
+    "ctaSecondary": "Voir nos réalisations",
     "visualPlaceholder": "Visuel immersif"
   },
   "experiences": {
@@ -20,6 +20,8 @@
     "title": "Six façons de rendre un magasin inoubliable.",
     "subtitle": "Chacune pensée comme un moment — et instrumentée pour en prouver l'impact.",
     "learnMore": "En savoir plus",
+    "seeMore": "Voir plus",
+    "seeLess": "Voir moins",
     "items": {
       "photobooth": { "name": "Photobooth", "tagline": "Des portraits partageables, à ta marque." },
       "engraving": { "name": "Gravure", "tagline": "Des souvenirs personnalisés, en direct." },

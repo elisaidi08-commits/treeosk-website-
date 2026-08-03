@@ -35,10 +35,9 @@ export default function Header() {
   const onDark = mounted && resolvedTheme === "dark";
 
   const links = [
-    { href: "#experiences", label: t("experiences") },
+    { href: "#products", label: t("experiences") },
     { href: "#cases", label: t("cases") },
     { href: "#how", label: t("howItWorks") },
-    { href: "#about", label: t("about") },
   ];
 
   return (

@@ -1,6 +1,6 @@
 {
   "nav": {
-    "experiences": "Ervaringen",
+    "experiences": "Producten",
     "cases": "Cases",
     "howItWorks": "Hoe het werkt",
     "about": "Over ons",
@@ -11,8 +11,8 @@
     "titleLine1": "Memorabele ervaringen.",
     "titleLine2": "Meetbare impact.",
     "subtitle": "Photobooth, gravure, gaming, geur, kiosken en virtuele gastvrouwen — wij ontwerpen de in-store momenten die uw klanten onthouden, met de data om ze allemaal te meten.",
-    "ctaPrimary": "Boek een gesprek",
-    "ctaSecondary": "Ontdek hoe het werkt",
+    "ctaPrimary": "Ontdek de producten",
+    "ctaSecondary": "Bekijk ons werk",
     "visualPlaceholder": "Immersief beeld"
   },
   "experiences": {
@@ -20,6 +20,8 @@
     "title": "Zes manieren om een winkel onvergetelijk te maken.",
     "subtitle": "Elk ontworpen als een moment — en gemeten om de impact te bewijzen.",
     "learnMore": "Meer weten",
+    "seeMore": "Meer tonen",
+    "seeLess": "Minder tonen",
     "items": {
       "photobooth": { "name": "Photobooth", "tagline": "Deelbare portretten, on-brand." },
       "engraving": { "name": "Gravure", "tagline": "Gepersonaliseerde souvenirs, live." },

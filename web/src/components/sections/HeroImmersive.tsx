@@ -27,14 +27,14 @@ export default function HeroImmersive() {
     <HorizonHero videoSrcs={VIDEOS} posterSrc={POSTER} overline={t("overline")} headline={headline}>
       <Magnetic>
         <a
-          href="#contact"
+          href="#products"
           className="inline-flex items-center rounded-pill border border-brass px-8 py-3.5 text-sm font-medium text-brass transition hover:border-brass-hover hover:bg-brass/[0.08] hover:text-brass-hover"
         >
           {t("ctaPrimary")}
         </a>
       </Magnetic>
       <a
-        href="#how"
+        href="#cases"
         className="group inline-flex items-center gap-2 text-sm font-medium text-fg-muted transition hover:text-fg"
       >
         {t("ctaSecondary")}

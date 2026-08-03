@@ -1,9 +1,9 @@
 import HeroImmersive from "@/components/sections/HeroImmersive";
-import Brands from "@/components/sections/Brands";
-import Experiences from "@/components/sections/Experiences";
-import InStore from "@/components/sections/InStore";
-import HowItWorks from "@/components/sections/HowItWorks";
+import Products from "@/components/sections/Products";
 import Cases from "@/components/sections/Cases";
+import HowItWorks from "@/components/sections/HowItWorks";
+import InStore from "@/components/sections/InStore";
+import Brands from "@/components/sections/Brands";
 import Statement from "@/components/sections/Statement";
 import CTA from "@/components/sections/CTA";
 import Footer from "@/components/layout/Footer";
@@ -13,11 +13,11 @@ export default function Home() {
     <>
       <main className="flex-1">
         <HeroImmersive />
-        <Brands />
-        <Experiences />
-        <InStore />
-        <HowItWorks />
+        <Products />
         <Cases />
+        <HowItWorks />
+        <InStore />
+        <Brands />
         <Statement />
         <CTA />
       </main>

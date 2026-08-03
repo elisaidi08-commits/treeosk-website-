@@ -1,7 +1,7 @@
 {
   "nav": {
-    "experiences": "Experiences",
-    "cases": "Cases",
+    "experiences": "Products",
+    "cases": "Work",
     "howItWorks": "How it works",
     "about": "About",
     "bookDemo": "Book a call"
@@ -11,8 +11,8 @@
     "titleLine1": "Memorable experiences.",
     "titleLine2": "Measurable impact.",
     "subtitle": "Photobooth, engraving, gaming, scent, kiosks and virtual hostesses — we design the in-store moments your customers remember, with the data to measure every one of them.",
-    "ctaPrimary": "Book a call",
-    "ctaSecondary": "See how it works",
+    "ctaPrimary": "Discover the products",
+    "ctaSecondary": "See our work",
     "visualPlaceholder": "Immersive visual"
   },
   "experiences": {
@@ -20,6 +20,8 @@
     "title": "Six ways to make a store unforgettable.",
     "subtitle": "Each one designed as a moment — and instrumented to prove its impact.",
     "learnMore": "Learn more",
+    "seeMore": "See more",
+    "seeLess": "See less",
     "items": {
       "photobooth": { "name": "Photobooth", "tagline": "Shareable portraits, on-brand." },
       "engraving": { "name": "Engraving", "tagline": "Personalised keepsakes, live." },
