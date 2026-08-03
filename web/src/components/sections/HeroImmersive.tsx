@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import Magnetic from "@/components/ui/Magnetic";
 import { HorizonHero } from "@/components/ui/horizon-hero-section";
@@ -14,12 +15,14 @@ const HeroKiosk3D = dynamic(() => import("@/components/sections/HeroKiosk3D"), {
  */
 export default function HeroImmersive() {
   const t = useTranslations("hero");
+  const { resolvedTheme } = useTheme();
+  const light = resolvedTheme !== "dark";
 
   return (
     <HorizonHero
       overline={t("overline")}
       title={t("titleLine1")}
-      visual={<HeroKiosk3D />}
+      visual={<HeroKiosk3D light={light} />}
     >
       <Magnetic>
         <a

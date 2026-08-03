@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { AnimatePresence, motion, useScroll, useMotionValueEvent, useReducedMotion } from "framer-motion";
+import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import Container from "@/components/layout/Container";
 
@@ -30,6 +31,8 @@ const EXPERIENCES: Experience[] = [
 export default function Products() {
   const t = useTranslations("experiences");
   const reduce = useReducedMotion();
+  const { resolvedTheme } = useTheme();
+  const light = resolvedTheme !== "dark";
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
 
@@ -135,7 +138,7 @@ export default function Products() {
 
             {/* Colonne produit — kiosque 3D FIXE qui se transforme */}
             <div className="relative order-1 h-[46vh] w-full md:order-2 md:h-[78vh]">
-              <KioskMorph3D active={active} accent={exp.accent} />
+              <KioskMorph3D active={active} accent={exp.accent} light={light} />
             </div>
           </Container>
         </div>

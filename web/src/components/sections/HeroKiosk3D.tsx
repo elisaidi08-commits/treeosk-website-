@@ -9,8 +9,12 @@ import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeom
  * poli, arrondi, minimaliste), avec un écran affichant un de nos assets. Même modèle que le
  * morphing pour la cohérence ; ici il TOURNE lentement + réagit au curseur. Reduced-motion → statique.
  */
-export default function HeroKiosk3D() {
+export default function HeroKiosk3D({ light = true }: { light?: boolean }) {
   const mountRef = useRef<HTMLDivElement>(null);
+  const lightRef = useRef(light);
+  useEffect(() => {
+    lightRef.current = light;
+  }, [light]);
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -56,6 +60,21 @@ export default function HeroKiosk3D() {
       envMap: envTex,
       envMapIntensity: 2.2,
     });
+    // Finition selon le thème : BLANC satiné en light, chrome miroir en dark.
+    let curLight: boolean | null = null;
+    const applyFinish = (isLight: boolean) => {
+      if (isLight) {
+        chrome.color.setHex(0xffffff);
+        chrome.metalness = 0.18;
+        chrome.roughness = 0.42;
+        chrome.envMapIntensity = 0.5;
+      } else {
+        chrome.color.setHex(0xeef0f2);
+        chrome.metalness = 1;
+        chrome.roughness = 0.08;
+        chrome.envMapIntensity = 2.2;
+      }
+    };
 
     const kiosk = new THREE.Group();
     const body = new THREE.Mesh(new RoundedBoxGeometry(1.7, 3.15, 1.15, 10, 0.34), chrome);
@@ -97,6 +116,10 @@ export default function HeroKiosk3D() {
     let raf = 0;
     const render = () => {
       const t = clock.getElapsedTime();
+      if (curLight !== lightRef.current) {
+        curLight = lightRef.current;
+        applyFinish(curLight);
+      }
       kiosk.rotation.y += 0.006;
       kiosk.rotation.x = Math.sin(t * 0.4) * 0.05 + mouse.y * 0.12;
       kiosk.position.y = 0.12 + Math.sin(t * 0.6) * 0.05;

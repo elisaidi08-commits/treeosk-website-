@@ -11,16 +11,28 @@ import { RoundedBoxGeometry } from "three/examples/jsm/geometries/RoundedBoxGeom
  * cluster custom). Écran + halo prennent la couleur de l'expérience. Chrome via env-map clair
  * → lisible en LIGHT comme en DARK. Procédural, aucune dépendance hors `three`.
  */
-export default function KioskMorph3D({ active, accent }: { active: number; accent: string }) {
+export default function KioskMorph3D({
+  active,
+  accent,
+  light = true,
+}: {
+  active: number;
+  accent: string;
+  light?: boolean;
+}) {
   const mountRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef(active);
   const accentRef = useRef(accent);
+  const lightRef = useRef(light);
   useEffect(() => {
     activeRef.current = active;
   }, [active]);
   useEffect(() => {
     accentRef.current = accent;
   }, [accent]);
+  useEffect(() => {
+    lightRef.current = light;
+  }, [light]);
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -60,14 +72,35 @@ export default function KioskMorph3D({ active, accent }: { active: number; accen
     envTex.colorSpace = THREE.SRGBColorSpace;
     scene.environment = envTex;
 
-    const chrome = () =>
-      new THREE.MeshStandardMaterial({
+    const chromeMats: THREE.MeshStandardMaterial[] = [];
+    const chrome = () => {
+      const m = new THREE.MeshStandardMaterial({
         color: 0xeceef0,
         metalness: 1,
         roughness: 0.1,
         envMap: envTex,
         envMapIntensity: 2.1,
       });
+      chromeMats.push(m);
+      return m;
+    };
+    // Finition selon le thème : BLANC satiné en light, chrome miroir en dark.
+    let curLight: boolean | null = null;
+    const applyFinish = (isLight: boolean) => {
+      chromeMats.forEach((m) => {
+        if (isLight) {
+          m.color.setHex(0xffffff);
+          m.metalness = 0.18;
+          m.roughness = 0.42;
+          m.envMapIntensity = 0.5;
+        } else {
+          m.color.setHex(0xeceef0);
+          m.metalness = 1;
+          m.roughness = 0.1;
+          m.envMapIntensity = 2.1;
+        }
+      });
+    };
     const dark = () =>
       new THREE.MeshStandardMaterial({ color: 0x15171b, metalness: 0.7, roughness: 0.45, envMap: envTex });
 
@@ -210,6 +243,10 @@ export default function KioskMorph3D({ active, accent }: { active: number; accen
     let raf = 0;
     const render = () => {
       const t = clock.getElapsedTime();
+      if (curLight !== lightRef.current) {
+        curLight = lightRef.current;
+        applyFinish(curLight);
+      }
       col.set(accentRef.current);
       accentMats.forEach((m) => m.emissive.lerp(col, 0.12));
       accentLight.color.lerp(col, 0.1);
