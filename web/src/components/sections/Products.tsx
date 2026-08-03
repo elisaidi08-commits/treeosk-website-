@@ -17,13 +17,14 @@ const KioskMorph3D = dynamic(() => import("@/components/sections/KioskMorph3D"),
  */
 type Experience = { slug: string; accent: string };
 
+// Couleur d'accentuation par expérience (guide anim) : rose · or · vert · lavande · bleu ciel · argent.
 const EXPERIENCES: Experience[] = [
-  { slug: "photobooth", accent: "#A8607A" },
+  { slug: "photobooth", accent: "#BE5A7C" },
   { slug: "engraving", accent: "#B8925A" },
-  { slug: "gaming", accent: "#4A6E9E" },
-  { slug: "scent", accent: "#5E8B72" },
-  { slug: "kiosk-hostess", accent: "#5B6B7A" },
-  { slug: "custom", accent: "#6E5A86" },
+  { slug: "gaming", accent: "#3E9C82" },
+  { slug: "scent", accent: "#8A7BB2" },
+  { slug: "kiosk-hostess", accent: "#5B8FB0" },
+  { slug: "custom", accent: "#7E8896" },
 ];
 
 export default function Products() {
