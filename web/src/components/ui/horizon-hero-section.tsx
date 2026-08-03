@@ -1,45 +1,28 @@
 "use client";
 
 import * as React from "react";
-import { useRef, useState } from "react";
-import { AnimatePresence, motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import { motion, useReducedMotion } from "framer-motion";
+import Container from "@/components/layout/Container";
+import SplitText from "@/components/ui/SplitText";
 
 /**
- * HorizonHero — hero ÉPURÉ : vidéo plein cadre (nos assets chrome, gradée N&B froid) dont
- * les clips s'enchaînent en boucle continue, + titre court révélé en « machine à écrire »
- * (TypewriterEffectSmooth, curseur acier). Volontairement peu de texte. La vidéo garde un
- * léger zoom/parallax au scroll. Reduced-motion → poster statique.
+ * HorizonHero — hero PRODUIT-FIRST : typo massive à gauche (SplitText, révélée puis STABLE —
+ * elle ne s'efface pas), produit 3D à droite (le kiosque qui tourne). Fond silver-chrome froid
+ * + halos ambiants subtils. Le texte reste ancré (aucun scroll-scrub). Reduced-motion géré.
  */
 interface HorizonHeroProps {
-  /** Un ou plusieurs clips : ils s'enchaînent en continu (fondu) et bouclent à l'infini. */
-  videoSrcs: string[];
-  posterSrc?: string;
   overline?: string;
-  /** Titre court, mot par mot (reveal typewriter). */
-  headline: { text: string; className?: string }[];
+  /** Titre massif (révélé lettre par lettre). */
+  title: string;
+  subtitle?: string;
+  /** Visuel produit (objet 3D). */
+  visual?: React.ReactNode;
   /** CTA. */
   children?: React.ReactNode;
-  grayscale?: boolean;
 }
 
-export function HorizonHero({
-  videoSrcs,
-  posterSrc,
-  overline,
-  headline,
-  children,
-  grayscale = true,
-}: HorizonHeroProps) {
+export function HorizonHero({ overline, title, subtitle, visual, children }: HorizonHeroProps) {
   const reduce = useReducedMotion();
-  const rootRef = useRef<HTMLElement>(null);
-  const [index, setIndex] = useState(0);
-
-  const { scrollYProgress } = useScroll({ target: rootRef, offset: ["start start", "end start"] });
-  const videoScale = useTransform(scrollYProgress, [0, 1], [1.06, 1.2]);
-  const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "7%"]);
-
-  const filter = grayscale ? "grayscale(1) contrast(1.06) brightness(0.98)" : undefined;
   const fade = (delay = 0) =>
     reduce
       ? {}
@@ -50,65 +33,46 @@ export function HorizonHero({
         };
 
   return (
-    <section ref={rootRef} className="relative min-h-screen w-full overflow-hidden bg-canvas text-fg">
-      {/* Vidéo plein cadre — les clips chrome s'enchaînent en continu (fondu), boucle infinie */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <motion.div className="absolute inset-0" style={{ scale: reduce ? 1 : videoScale, y: reduce ? 0 : videoY }}>
-          {reduce ? (
-            posterSrc && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={posterSrc} alt="" className="absolute inset-0 h-full w-full object-cover" style={{ filter }} />
-            )
-          ) : (
-            <AnimatePresence>
-              <motion.video
-                key={index}
-                src={videoSrcs[index]}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
-                className="absolute inset-0 h-full w-full object-cover"
-                style={{ filter }}
-                autoPlay
-                muted
-                playsInline
-                preload="auto"
-                poster={posterSrc}
-                onEnded={() => setIndex((i) => (i + 1) % videoSrcs.length)}
-              />
-            </AnimatePresence>
-          )}
-        </motion.div>
-      </div>
+    <section className="relative min-h-screen w-full overflow-hidden bg-canvas text-fg">
+      {/* Halos ambiants froids (silver + fine touche d'acier) */}
+      <div
+        className="pointer-events-none absolute right-[8%] top-[12%] h-[62vh] w-[62vh] rounded-full opacity-70 blur-[120px] motion-safe:animate-[drift-a_18s_ease-in-out_infinite]"
+        style={{ background: "radial-gradient(circle, rgba(244,245,247,0.9), transparent 66%)" }}
+      />
+      <div
+        className="pointer-events-none absolute right-[24%] top-[40%] h-[46vh] w-[46vh] rounded-full opacity-45 blur-[130px] motion-safe:animate-[drift-b_24s_ease-in-out_infinite]"
+        style={{ background: "radial-gradient(circle, rgba(58,90,122,0.12), transparent 64%)" }}
+      />
 
-      {/* Voiles thémables : lisibilité de la colonne texte (silver/sombre selon thème) */}
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-r from-canvas via-canvas/68 to-transparent" />
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-canvas/72 via-transparent to-canvas/20" />
-
-      {/* Contenu — épuré */}
-      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1248px] items-center px-6 py-32 md:px-10">
-        <div className="w-full max-w-5xl">
+      <Container className="relative z-10 grid min-h-screen items-center gap-6 py-28 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+        {/* Colonne texte — massive, reste affichée */}
+        <div className="order-2 max-w-2xl lg:order-1">
           {overline && (
             <motion.p {...fade(0)} className="t-overline text-fg-subtle">
               {overline}
             </motion.p>
           )}
 
-          <TypewriterEffectSmooth
-            words={headline}
-            className="mt-6 justify-start"
-            textClassName="text-[clamp(1.6rem,5.4vw,3.75rem)] leading-[1.0] tracking-[-0.03em]"
-            cursorClassName="h-[clamp(1.6rem,5.4vw,3.75rem)]"
-          />
+          <h1 className="mt-6 font-sans text-[clamp(3rem,7.5vw,6rem)] font-medium leading-[0.92] tracking-[-0.045em]">
+            <SplitText text={title} className="block" delay={0.35} />
+          </h1>
+
+          {subtitle && (
+            <motion.p {...fade(0.6)} className="mt-8 max-w-md text-[15px] leading-relaxed text-fg-muted">
+              {subtitle}
+            </motion.p>
+          )}
 
           {children && (
-            <motion.div {...fade(0.5)} className="mt-12 flex flex-wrap items-center gap-6">
+            <motion.div {...fade(0.75)} className="mt-11 flex flex-wrap items-center gap-6">
               {children}
             </motion.div>
           )}
         </div>
-      </div>
+
+        {/* Colonne produit — kiosque 3D qui tourne */}
+        <div className="relative order-1 h-[42vh] w-full lg:order-2 lg:h-[76vh]">{visual}</div>
+      </Container>
 
       {/* Indice de scroll */}
       <div className="pointer-events-none absolute inset-x-0 bottom-8 z-10 flex justify-center">

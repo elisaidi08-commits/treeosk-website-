@@ -1,30 +1,26 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import Magnetic from "@/components/ui/Magnetic";
 import { HorizonHero } from "@/components/ui/horizon-hero-section";
 
-/**
- * Hero — épuré : vidéo plein cadre (nos assets chrome + hero.mp4, froid N&B) dont les clips
- * s'enchaînent en boucle continue + titre court révélé en machine à écrire (HorizonHero).
- * Peu de texte, volontairement. Pour changer/réordonner les clips : éditer VIDEOS.
- */
-const VIDEOS = [
-  "/media/textures/chrome-ribbon.mp4",
-  "/media/textures/liquid-chrome.mp4",
-  "/media/hero/hero.mp4",
-  "/media/textures/liquid-metal.mp4",
-];
-const POSTER = "/media/hero/hero-poster.webp";
+// Le kiosque 3D est chargé côté client uniquement (WebGL).
+const HeroKiosk3D = dynamic(() => import("@/components/sections/HeroKiosk3D"), { ssr: false });
 
+/**
+ * Hero — produit-first : titre massif à gauche (silver, reste affiché) + kiosque Treeosk en 3D
+ * qui tourne à droite (HorizonHero). Remplace la vidéo chrome abstraite par le PRODUIT.
+ */
 export default function HeroImmersive() {
   const t = useTranslations("hero");
-  const headline = t("titleLine1")
-    .split(" ")
-    .map((text) => ({ text }));
 
   return (
-    <HorizonHero videoSrcs={VIDEOS} posterSrc={POSTER} overline={t("overline")} headline={headline}>
+    <HorizonHero
+      overline={t("overline")}
+      title={t("titleLine1")}
+      visual={<HeroKiosk3D />}
+    >
       <Magnetic>
         <a
           href="#products"
