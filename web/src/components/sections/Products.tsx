@@ -54,7 +54,7 @@ export default function Products() {
               <div key={e.slug} className="overflow-hidden rounded-[10px] border border-hairline bg-surface">
                 <div className="relative aspect-[4/5]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`/media/experiences/${e.slug}.png`} alt="" className="h-full w-full object-cover" />
+                  <img src={`/media/experiences/${e.slug}.webp`} alt="" className="h-full w-full object-cover" />
                 </div>
                 <div className="p-5">
                   <span className="block h-[2px] w-8" style={{ background: e.accent }} />
@@ -139,7 +139,7 @@ export default function Products() {
             <AnimatePresence mode="popLayout">
               <motion.img
                 key={exp.slug}
-                src={`/media/experiences/${exp.slug}.png`}
+                src={`/media/experiences/${exp.slug}.webp`}
                 alt={t(`items.${exp.slug}.name`)}
                 initial={{ opacity: 0, scale: 1.08, clipPath: "inset(100% 0 0 0)" }}
                 animate={{ opacity: 1, scale: 1, clipPath: "inset(0% 0 0 0)" }}

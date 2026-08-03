@@ -76,7 +76,7 @@ export default function Cases() {
               <div className="relative aspect-[16/11] overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={`/media/experiences/${c.media}.png`}
+                  src={`/media/experiences/${c.media}.webp`}
                   alt={t(`${c.key}b`)}
                   className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-[1.05] group-hover:grayscale-0"
                 />

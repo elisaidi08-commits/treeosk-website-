@@ -15,7 +15,7 @@ const VIDEOS = [
   "/media/hero/hero.mp4",
   "/media/textures/liquid-metal.mp4",
 ];
-const POSTER = "/media/hero/hero-poster.jpg";
+const POSTER = "/media/hero/hero-poster.webp";
 
 export default function HeroImmersive() {
   const t = useTranslations("hero");

@@ -54,8 +54,8 @@ export default function Header() {
           <Image
             src={
               onDark
-                ? "/brand/treeosk-wordmark-white.png"
-                : "/brand/treeosk-wordmark-black.png"
+                ? "/brand/treeosk-wordmark-white.webp"
+                : "/brand/treeosk-wordmark-black.webp"
             }
             alt="Treeosk"
             width={140}

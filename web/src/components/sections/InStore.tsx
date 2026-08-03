@@ -15,8 +15,8 @@ export default function InStore() {
     <SmoothScrollHero
       id="instore"
       scrollVh={220}
-      desktopImage="/media/instore/after.png"
-      mobileImage="/media/experiences/kiosk-hostess.png"
+      desktopImage="/media/instore/after.webp"
+      mobileImage="/media/experiences/kiosk-hostess.webp"
       initialClipPercentage={25}
       finalClipPercentage={75}
     >

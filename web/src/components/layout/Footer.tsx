@@ -38,14 +38,14 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
           <div>
             <Image
-              src="/brand/treeosk-wordmark-black.png"
+              src="/brand/treeosk-wordmark-black.webp"
               alt="Treeosk"
               width={130}
               height={21}
               className="h-[20px] w-auto dark:hidden"
             />
             <Image
-              src="/brand/treeosk-wordmark-white.png"
+              src="/brand/treeosk-wordmark-white.webp"
               alt="Treeosk"
               width={130}
               height={21}
