@@ -86,7 +86,7 @@ export default function HeroKiosk3D({ light = true }: { light?: boolean }) {
     // Écran sombre avec lueur acier (« allumé ») — pas d'image
     const screen = new THREE.Mesh(
       new RoundedBoxGeometry(0.92, 1.5, 0.04, 4, 0.06),
-      new THREE.MeshStandardMaterial({ color: 0x0a0b0e, emissive: 0x3a5a7a, emissiveIntensity: 0.9, metalness: 0.4, roughness: 0.4 }),
+      new THREE.MeshStandardMaterial({ color: 0x0a0b0e, emissive: 0x3a5a7a, emissiveIntensity: 0.32, metalness: 0.4, roughness: 0.4 }),
     );
     screen.position.set(0, 0.25, 0.6);
     kiosk.add(screen);
@@ -100,7 +100,7 @@ export default function HeroKiosk3D({ light = true }: { light?: boolean }) {
     const fill = new THREE.DirectionalLight(0xdfe1e3, 1.0);
     fill.position.set(-5, 2, 3);
     scene.add(fill);
-    const steel = new THREE.PointLight(0x3a5a7a, 14, 18);
+    const steel = new THREE.PointLight(0x3a5a7a, 6, 18);
     steel.position.set(-3, -1, 3);
     scene.add(steel);
     scene.add(new THREE.AmbientLight(0xcbced2, 0.55));

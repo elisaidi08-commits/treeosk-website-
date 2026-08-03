@@ -18,14 +18,14 @@ const KioskMorph3D = dynamic(() => import("@/components/sections/KioskMorph3D"),
  */
 type Experience = { slug: string; accent: string };
 
-// Couleur d'accentuation par expérience (guide anim) : rose · or · vert · lavande · bleu ciel · argent.
+// Accent par expérience — tons FEUTRÉS (premium, basse saturation), pas néon.
 const EXPERIENCES: Experience[] = [
-  { slug: "photobooth", accent: "#BE5A7C" },
-  { slug: "engraving", accent: "#B8925A" },
-  { slug: "gaming", accent: "#3E9C82" },
-  { slug: "scent", accent: "#8A7BB2" },
-  { slug: "kiosk-hostess", accent: "#5B8FB0" },
-  { slug: "custom", accent: "#7E8896" },
+  { slug: "photobooth", accent: "#9E818C" },
+  { slug: "engraving", accent: "#A08F6E" },
+  { slug: "gaming", accent: "#74857E" },
+  { slug: "scent", accent: "#83808E" },
+  { slug: "kiosk-hostess", accent: "#75839A" },
+  { slug: "custom", accent: "#878B92" },
 ];
 
 export default function Products() {
@@ -85,7 +85,7 @@ export default function Products() {
         {/* Background interpolation — teinte douce de la couleur de l'expérience (0.8s linear) */}
         <div
           className="pointer-events-none absolute inset-0"
-          style={{ backgroundColor: exp.accent, opacity: 0.08, transition: "background-color 0.8s linear, opacity 0.8s linear" }}
+          style={{ backgroundColor: exp.accent, opacity: 0.045, transition: "background-color 0.8s linear, opacity 0.8s linear" }}
         />
 
         <div className="relative flex h-full items-center">

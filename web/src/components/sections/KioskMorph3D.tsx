@@ -112,7 +112,7 @@ export default function KioskMorph3D({
         metalness: 0.4,
         roughness: 0.4,
         emissive: 0x3a5a7a,
-        emissiveIntensity: 1.0,
+        emissiveIntensity: 0.4,
       });
       accentMats.push(m);
       return m;
@@ -226,7 +226,7 @@ export default function KioskMorph3D({
     const fill = new THREE.DirectionalLight(0xdfe1e3, 1.0);
     fill.position.set(-5, 2, 3);
     scene.add(fill);
-    const accentLight = new THREE.PointLight(0x3a5a7a, 14, 18);
+    const accentLight = new THREE.PointLight(0x3a5a7a, 6, 18);
     accentLight.position.set(0, 0.4, 3);
     scene.add(accentLight);
     scene.add(new THREE.AmbientLight(0xcbced2, 0.55));

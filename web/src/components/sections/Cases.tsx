@@ -17,12 +17,12 @@ const WorkScreen3D = dynamic(() => import("@/components/sections/WorkScreen3D"),
  * fonctionne » (les 5 étapes du process), avec navigation + autoplay.
  */
 const WHAT = [
-  { slug: "photobooth", accent: "#BE5A7C" },
-  { slug: "engraving", accent: "#B8925A" },
-  { slug: "gaming", accent: "#3E9C82" },
-  { slug: "scent", accent: "#8A7BB2" },
-  { slug: "kiosk-hostess", accent: "#5B8FB0" },
-  { slug: "custom", accent: "#7E8896" },
+  { slug: "photobooth", accent: "#9E818C" },
+  { slug: "engraving", accent: "#A08F6E" },
+  { slug: "gaming", accent: "#74857E" },
+  { slug: "scent", accent: "#83808E" },
+  { slug: "kiosk-hostess", accent: "#75839A" },
+  { slug: "custom", accent: "#878B92" },
 ];
 const STEPS = ["s1", "s2", "s3", "s4", "s5"];
 

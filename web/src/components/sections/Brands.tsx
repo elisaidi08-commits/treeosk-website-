@@ -60,11 +60,11 @@ export default function Brands() {
               className="group flex items-center justify-center text-center"
             >
               <span
-                className="cursor-default font-sans text-[clamp(1.1rem,2.2vw,1.65rem)] font-medium tracking-tight text-fg-subtle transition-all duration-300 group-hover:scale-[1.06] group-hover:text-fg"
+                className="cursor-default font-sans text-[clamp(1.1rem,2.2vw,1.65rem)] font-medium tracking-tight text-fg-subtle transition-all duration-300 group-hover:scale-[1.03] group-hover:text-fg"
                 style={{ ["--hue" as string]: b.hue }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = b.hue;
-                  e.currentTarget.style.textShadow = `0 0 30px ${b.hue}55`;
+                  e.currentTarget.style.textShadow = `0 0 22px ${b.hue}2e`;
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = "";
