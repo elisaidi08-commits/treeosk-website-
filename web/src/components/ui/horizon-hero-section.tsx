@@ -1,16 +1,18 @@
 "use client";
 
 import * as React from "react";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useTheme } from "next-themes";
 import Container from "@/components/layout/Container";
 import SplitText from "@/components/ui/SplitText";
+import { AnimatedGradient } from "@/components/ui/animated-gradient";
 
 /**
  * HorizonHero — hero PRODUIT-FIRST + IMMERSION AU SCROLL : typo massive à gauche (SplitText,
- * révélée puis STABLE — elle ne s'efface pas), produit 3D à droite (le kiosque). Quand on
- * scrolle, le kiosque grossit / avance (on « entre » dans le produit), le texte fait un léger
- * parallax et les halos s'intensifient → transition douce vers les expériences. Reduced-motion géré.
+ * reste STABLE), produit 3D à droite (le kiosque). Fond = dégradé animé WebGL SUBTIL, clair en
+ * light mode / graphite en dark (désaturé, premium). Au scroll : le kiosque grossit / avance,
+ * le texte parallaxe, le fond s'intensifie. Reduced-motion → dégradé statique.
  */
 interface HorizonHeroProps {
   overline?: string;
@@ -22,16 +24,40 @@ interface HorizonHeroProps {
 
 export function HorizonHero({ overline, title, subtitle, visual, children }: HorizonHeroProps) {
   const reduce = useReducedMotion();
+  const { resolvedTheme } = useTheme();
+  const light = resolvedTheme !== "dark";
   const rootRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: rootRef, offset: ["start start", "end start"] });
 
-  // Immersion : le produit grossit et avance, le texte parallaxe, les halos montent.
   const visualScale = useTransform(scrollYProgress, [0, 1], [1, 1.22]);
   const visualY = useTransform(scrollYProgress, [0, 1], [0, -28]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, -64]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.9], [1, 0.82]);
-  const haloOpacity = useTransform(scrollYProgress, [0, 1], [0.7, 1]);
+  const bgOpacity = useTransform(scrollYProgress, [0, 1], [0.85, 1]);
   const cueOpacity = useTransform(scrollYProgress, [0, 0.35], [1, 0]);
+
+  // Config mémoïsée (ne change qu'au switch de thème → pas de ré-init WebGL à chaque render).
+  const gradientConfig = useMemo(
+    () =>
+      ({
+        preset: "custom" as const,
+        color1: light ? "#e6e8ea" : "#0b0b0d",
+        color2: light ? "#f5f6f8" : "#181a1e",
+        color3: light ? "#ccd2d8" : "#2b3037",
+        rotation: -22,
+        proportion: 55,
+        scale: 0.5,
+        speed: 5,
+        distortion: 12,
+        swirl: 30,
+        swirlIterations: 8,
+        softness: 100,
+        offset: 90,
+        shape: "Edge" as const,
+        shapeSize: 55,
+      }),
+    [light],
+  );
 
   const fade = (delay = 0) =>
     reduce
@@ -44,16 +70,20 @@ export function HorizonHero({ overline, title, subtitle, visual, children }: Hor
 
   return (
     <section ref={rootRef} className="relative min-h-screen w-full overflow-hidden bg-canvas text-fg">
-      {/* Halos ambiants froids (silver + fine touche d'acier), s'intensifient au scroll */}
-      <motion.div style={{ opacity: reduce ? 0.7 : haloOpacity }} className="pointer-events-none absolute inset-0">
-        <div
-          className="absolute right-[8%] top-[12%] h-[62vh] w-[62vh] rounded-full blur-[120px] motion-safe:animate-[drift-a_18s_ease-in-out_infinite]"
-          style={{ background: "radial-gradient(circle, rgba(244,245,247,0.9), transparent 66%)" }}
-        />
-        <div
-          className="absolute right-[24%] top-[40%] h-[46vh] w-[46vh] rounded-full blur-[130px] motion-safe:animate-[drift-b_24s_ease-in-out_infinite]"
-          style={{ background: "radial-gradient(circle, rgba(58,90,122,0.14), transparent 64%)" }}
-        />
+      {/* Fond : dégradé animé subtil (clair en light, graphite en dark) */}
+      <motion.div style={{ opacity: reduce ? 0.85 : bgOpacity }} className="pointer-events-none absolute inset-0 z-0">
+        {reduce ? (
+          <div
+            className="absolute inset-0"
+            style={{
+              background: light
+                ? "radial-gradient(120% 120% at 72% 18%, #f4f5f6, #e4e7ea 70%)"
+                : "radial-gradient(120% 120% at 72% 18%, #17181b, #0b0b0d 70%)",
+            }}
+          />
+        ) : (
+          <AnimatedGradient config={gradientConfig} />
+        )}
       </motion.div>
 
       <Container className="relative z-10 grid min-h-screen items-center gap-6 py-28 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
