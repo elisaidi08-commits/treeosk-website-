@@ -1,6 +1,6 @@
 # TREEOSK DESIGN SITE
 
-Espace de travail de la **refonte du site Treeosk** — positionner Treeosk comme **créateur d'expériences retail & événementiel premium** (luxe & cosmétique), pas fournisseur de matériel. Voir [reference/brief-employeur.md](reference/brief-employeur.md).
+Espac de travail de la **refonte du site Treeosk** — positionner Treeosk comme **créateur d'expériences retail & événementiel premium** (luxe & cosmétique), pas fournisseur de matériel. Voir [reference/brief-employeur.md](reference/brief-employeur.md).
 
 ## Direction artistique — Chrome × Cinéma (CHAUDE, verrouillée)
 Chrome tiède champagne + chaleur cinéma tungstène (sépia/tobacco), base claire, grands visuels immersifs en « fenêtres sombres ». Ratio **65/25/5/5** · chrome jamais froid · bleu écran ≤5% (écrans only). Typo **Base One + Inter** (inchangée).
